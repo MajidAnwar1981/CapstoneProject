@@ -1,0 +1,66 @@
+{
+  "name": "rocketdocs",
+  "version": "2.0.0",
+  "description": "**Rocketdocs 2.0 Test Environment Smoke Test**",
+  "main": "index.js",
+  "scripts": {
+    "cy:version": "cypress version",
+    "cy:open": "cypress open",
+    "cy:record": "cypress run --record <record_key>",
+    "cy:headless": "cypress run",
+    "cy:e2e": "cypress run --headless",
+    "teamcity_e2e": "npm run cy:headless",
+    "cleanup": "rm -fr cypress/reports/mochawesome-html-report",
+    "merge_reports": "mochawesome-merge cypress/reports/mochawesome-report/*.json > output.json",
+    "mochawesome_report": "marge --reportDir cypress/reports/mochawesome-html-report -t Cypress_Test_Report -p Cypress_HMTL_Report -f Cypress_HMTL_Report --timestamp mmddyyyy_HHMMss --charts true output.json",
+    "mochawesome_test": "npm run cleanup && npm run cy:headless && npm run merge_reports && npm run mochawesome_report",
+    "cy:run": "cypress run --env allure=true",
+    "allure:report": "allure generate allure-results --clean -o allure-report",
+    "allure:clear": "if exist allure-results rmdir /q /s allure-results && if exist allure-report rmdir /q /s allure-report && if exist cypress\\screenshots rmdir /q /s cypress\\screenshots && if exist cypress\\videos rmdir /q /s cypress\\videos",
+    "pretest": "npm run allure:clear",
+    "test": "npm run cy:run || npm run posttest",
+    "posttest": "npm run allure:report",
+    "chromeheadless": "npm run cy:chrome || npm run generate-report",
+    "e2e:chrome": "cypress run --browser chrome",
+    "e2e:firefox": "cypress run --browser firefox",
+    "cy:chrome": "cypress run --browser chrome --headless",
+    "cy:firefox": "cypress run --browser firefox --headless",
+    "e2e:record:chrome": "cypress run --record --browser chrome",
+    "e2e:record:edge": "cypress run --record --browser edge",
+    "e2e:record:firefox": "cypress run --record --browser firefox",
+    "e2e:record:parallel": "cypress run --record --parallel"
+  },
+  "keywords": [],
+  "author": "mshahed",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^7.7.0",
+    "npx": "^10.2.2",
+    "mocha": "^7.1.2",
+    "mochawesome": "^6.1.1",
+    "mochawesome-merge": "^4.0.3",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "@bahmutov/print-env": "1.2.0",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-xpath": "^1.6.2",
+    "husky": "1.3.1",
+    "netlify-plugin-cypress": "2.0.0",
+    "sed-lite": "0.8.2",
+    "shelljs": "0.8.4",
+    "typescript": "3.7.4",
+    "yaml-lint": "1.2.4"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://mshahedRC@bitbucket.org/rocketdocs/test-environment-smoke-test.git"
+  },
+  "dependencies": {
+    "@shelex/cypress-allure-plugin": "^2.9.0",
+    "allure-commandline": "^2.13.8",
+    "xpath": "0.0.32"
+  }
+}

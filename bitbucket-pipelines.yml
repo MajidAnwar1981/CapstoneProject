@@ -1,0 +1,36 @@
+#  Template NodeJS build
+
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: node:12
+
+options:
+  max-time: 30
+pipelines:
+  default:
+  - step:
+      name: Node package manager install
+      caches:
+        - npm
+      script:
+        - npm ci
+        - npm install
+  - step:
+      name: RD20 E2E Test
+      caches:
+        - npm
+        - cypress
+      image: cypress/base:10
+      script:
+        - npm i xvfb
+        - npm i cypress
+        - npm run cy:e2e
+      artifacts:
+    # store any generates images and videos as artifacts
+        - cypress/screenshots/**
+        - cypress/videos/**
+definitions:
+  caches:
+    npm: $HOME/.npm
+    cypress: $HOME/.cache/Cypress

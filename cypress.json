@@ -1,0 +1,23 @@
+{
+   "baseUrl": "https://automation1.rocketdocstest.com/",
+   "TestENV": "base",
+   "chromeWebSecurity": false,
+   "video": false,
+   "requestTimeout": 60000,
+   "responseTimeout": 60000,
+   "defaultCommandTimeout": 60000,
+   "projectId": "Rocketdocs 2.0",
+   "reporter": "mochawesome",
+   "retries": {
+      "runMode": 0,
+      "openMode": 0
+   },
+   "reporterOptions": {
+      "reportDir": "cypress/reports/mochawesome-report",
+      "overwrite": false,
+      "html": false,
+      "json": true,
+      "timestamp": "mmddyyyy_HHMMss"
+   },
+   "screenshotsFolder": "cypress/reports/mochawesome-report/assets"
+}
